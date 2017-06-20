@@ -17,7 +17,7 @@ PropTable *create_prop_table(uint16_t size)
 	return p;
 }
 
-//创建/初始化结果表，返回对应的指针
+//创建/初始化真值表，返回对应的指针
 ResultTable *create_result_table(uint16_t size)
 {
     int i;
@@ -28,7 +28,7 @@ ResultTable *create_result_table(uint16_t size)
     {
         p[i].result = 0;
     }
-    //初始化结果数（置0）
+    //初始化真值计算结果数（置0）
     result_num = 0;
 	return p;
 }
@@ -55,14 +55,19 @@ void add_prop_element(char name[PROP_NAME_SIZE])
     
 }
 
-//添加真值运算结果到结果表
+//添加真值运算结果到真值表
 void add_result_element(_Bool result)
 {
-    //结果个数+1
+    int i;
+    for(i = 0; i < prop_num; i++)
+    {
+        T[result_num].val[i] = P[i].val;
+    }
+    //真值结果个数+1
     T[result_num++].result = result;
 }
 
-//打印真值表标题，result_text指结果列头部的标题文本
+//打印真值表的标题，result_text指结果列头部的标题文本
 void print_table_title(char *result_text)
 {
     int i;
@@ -73,15 +78,18 @@ void print_table_title(char *result_text)
     printf("\t|\t%s\n", result_text);
 }
 
-//打印真值表身，result_index指打印的结果表中元素的位置
-void print_table_body(int result_index)
+//打印整个真值表
+void print_table_body()
 {
-    int i;
-    for(i = 0; i < prop_num; i++)
+    int i, j;
+    for(i = 0; i < result_num; i++)
     {
-        printf("\t%d", P[i].val);
+        for(j = 0; j < prop_num; j++)
+        {
+            printf("\t%d", T[i].val[j]);
+        }
+        printf("\t|\t%d\n", T[i].result);
     }
-    printf("\t|\t%d\n", T[result_index].result);
 }
 
 //从命题表指定名字的元素中得到真值，参数是命题元素的名字

@@ -1,5 +1,5 @@
-#ifndef _PROP_TABLE_H_
-#define _PROP_TABLE_H_
+#ifndef _PROP_H_
+#define _PROP_H_
 
 #include <stdlib.h>
 #include <stdint.h>
@@ -38,7 +38,7 @@ PropTable *P;
 //全局真值表
 ResultTable *T;
 
-//全局当前命题数，结果数
+//全局当前命题数，真值结果数
 uint16_t prop_num;
 uint16_t result_num;
 
@@ -56,6 +56,6 @@ uint64_t pow2(int num);
 void step_prop_val();
 void debug_print();
 void print_table_title(char *result_text);
-void print_table_body(int result_index);
+void print_table_body();
 
 #endif

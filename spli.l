@@ -30,12 +30,14 @@
 
 %%
 
+//重写yyerror函数
 void yyerror(char *s)
 {
 	fprintf(stderr, "Error: %s\n", s);
 	exit(1);
 }
 
+//重写yywrap函数，使之返回-1
 int yywrap()
 {
 	return -1;

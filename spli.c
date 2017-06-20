@@ -5,7 +5,7 @@ int main(int argc, char **argv)
 {
 	//初始化命题表
 	P = create_prop_table(PROP_MAX_SIZE);
-	//初始化真值枚举表（最大枚举数为2的PROP_MAX_SIZE次幂）
+	//初始化真值表（大小为2的PROP_MAX_SIZE次幂）
 	T = create_result_table(pow2(PROP_MAX_SIZE));
 
 	if(argc > 1)
@@ -19,11 +19,7 @@ int main(int argc, char **argv)
 		yy_switch_to_buffer(yy_scan_string(argv[1]));
 		//开始调用parser
 		yyparse();
-		//打印表标题，列头部的标题文本为命令行参数
-		print_table_title(argv[1]);
-		//打印第0个结果
-		print_table_body(0);
-		//递减以改变真值表中元素的值
+		//递减以改变命题表中元素的值
 		step_prop_val();
 
 		//第一次parsing结束，已经添加命题到命题表
@@ -36,12 +32,14 @@ int main(int argc, char **argv)
 			yy_switch_to_buffer(yy_scan_string(argv[1]));
 			//重新调用parser
 			yyparse();
-			//打印第i个结果
-			print_table_body(i);
-			//递减以改变真值表中元素的值
+			//递减以改变命题表中元素的值
 			step_prop_val();
 		}
 
+		//打印真值表的标题，结果列头部的标题文本为命令行参数
+		print_table_title(argv[1]);
+		//打印整个真值表
+		print_table_body();
 		return 0;
 	}
 	else

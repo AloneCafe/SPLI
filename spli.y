@@ -1,5 +1,6 @@
 %{
     #include "spli.h"
+    #include "prop.h"
 %}
 
 //token定义列表
