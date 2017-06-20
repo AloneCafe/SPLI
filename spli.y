@@ -1,20 +1,17 @@
 %{
-#include "spli.h"
+    #include "spli.h"
 %}
 
-
+//token定义列表
+%token	PROP
 %token	VAL_TRUE VAL_FALSE
 %token	OP CP
 %token	OPR_NOT OPR_AND OPR_OR OPR_IM OPR_EQ
-%token	P Q R S T
 %token	EOL
 
 %%
 
-
-
-list: 
-    | list exp {printf("%d\n",$2);}
+list: exp {add_result_element($1);}
     ;
 
 
@@ -36,7 +33,8 @@ factor1: term	{$$ = $1;}
 
 term: VAL_TRUE	{$$ = 1;}
 	| VAL_FALSE	{$$ = 0;}
-	| OPR_NOT term	{$$ = $2 == 1 ? 0 : 1;}
+    | PROP  {$$ = $1;}
+	| OPR_NOT term	{$$ = NOT($2);}
 	| OP exp CP	{$$ = $2;}
 	;
 

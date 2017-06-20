@@ -1,7 +1,7 @@
 all:
-	bison -d splic.y
-	flex splic.l
-	gcc -o splic lex.yy.c splic.tab.c splic.c -lfl
+	bison -d spli.y
+	flex spli.l
+	gcc -o spli lex.yy.c spli.tab.c spli.c prop.c -lfl
 
 clean:
-	rm -f lex.yy.c splic.tab.c splic.tab.h splic
+	rm -f lex.yy.c spli.tab.c spli.tab.h spli

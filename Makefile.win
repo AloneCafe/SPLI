@@ -1,7 +1,7 @@
 all:
-	build_tool/win_bison.exe -d splic.y
-	build_tool/win_flex.exe splic.l
-	mingw32-gcc.exe -o splic lex.yy.c splic.tab.c splic.c
+	win_build_tool/win_bison.exe -d spli.y
+	win_build_tool/win_flex.exe spli.l
+	gcc.exe -o spli lex.yy.c spli.tab.c spli.c prop.c
 
 clean:
-	del lex.yy.c splic.tab.c splic.tab.h splic
+	del lex.yy.c spli.tab.c spli.tab.h spli.exe

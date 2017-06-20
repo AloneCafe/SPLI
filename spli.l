@@ -1,32 +1,39 @@
 %{
 	#include "spli.tab.h"
+	#include "prop.h"
 %}
 
-
 %%
+
 "("	{return OP;}
 ")"	{return CP;}
-"¬"	{return OPR_NOT;}
-"∧"	{return OPR_AND;}
-"∨"	{return OPR_OR;}
-"→"	{return OPR_IM;}
-"↔"	{return OPR_EQ;}
-"p"	{return P;}
-"q"	{return Q;}
-"r"	{return R;}
-"s"	{return S;}
-"t"	{return T;}
+(N|n)(O|o)(T|t)	{return OPR_NOT;}
+(A|a)(N|n)(D|d)	{return OPR_AND;}
+(O|o)(R|r)	{return OPR_OR;}
+"->"	{return OPR_IM;}
+"<->"	{return OPR_EQ;}
+[A-Za-z_]+[A-Za-z_0-9]*	{
+	if(has_added == 0)
+	{
+		add_prop_element(yytext);
+	}
+	
+	yylval = get_prop_val(yytext);
+	
+	return PROP;
+}
 1	{yylval = 1; return VAL_TRUE;}
 0	{yylval = 0; return VAL_FALSE;}
 \n	{return EOL;}
 [ \t]	{}
-.	{printf("Illegal character: %c\n", *yytext);}
+.	{fprintf(stderr, "Illegal character: %c\n", *yytext);}
 
 %%
 
 void yyerror(char *s)
 {
 	fprintf(stderr, "Error: %s\n", s);
+	exit(1);
 }
 
 int yywrap()
