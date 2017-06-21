@@ -1,7 +1,20 @@
-all:
-	win_flex_bison/win_bison.exe -d spli.y
-	win_flex_bison/win_flex.exe spli.l
-	gcc.exe -o spli lex.yy.c spli.tab.c spli.c prop.c
+CC = mingw32-gcc.exe
+FLEX = win_flex_bison\win_flex.exe
+BISON = win_flex_bison\win_bison.exe
+RM = del /f /q
+TARGETS := spli
 
+all: $(TARGETS)
+
+$(TARGETS):
+	$(BISON) -d spli.y
+	$(FLEX) -i spli.l
+	$(CC) -o bin\spli.exe lex.yy.c spli.tab.c spli.c prop.c
+
+debug:
+	$(BISON) -d spli.y
+	$(FLEX) -d -i spli.l
+	$(CC) -o bin\spli.exe lex.yy.c spli.tab.c spli.c prop.c
+	
 clean:
-	del lex.yy.c spli.tab.c spli.tab.h spli.exe
+	$(RM) lex.yy.c spli.tab.c spli.tab.h bin\spli.exe

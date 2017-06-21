@@ -15,7 +15,17 @@ NOT(a)：对a取反
 #define AND(a, b)	a == 1 && b == 1 ? 1 : 0
 #define NOT(a)  a == 1 ? 0 : 1;
 
+#define EXPR_MAX_SIZE    128
+
+
+typedef struct yy_buffer_state *YY_BUFFER_STATE;
+
+//表达式
+char expr[EXPR_MAX_SIZE];
+
+
 //flex & bison 库函数声明
+
 int yylex();
 int yyparse();
 void yyerror(char *s);
