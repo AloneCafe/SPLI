@@ -1,6 +1,6 @@
 all:
-	win_build_tool/win_bison.exe -d spli.y
-	win_build_tool/win_flex.exe spli.l
+	win_flex_bison/win_bison.exe -d spli.y
+	win_flex_bison/win_flex.exe spli.l
 	gcc.exe -o spli lex.yy.c spli.tab.c spli.c prop.c
 
 clean:
