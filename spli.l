@@ -5,13 +5,33 @@
 
 %%
 
-"("	{return OP;}
-")"	{return CP;}
-(N|n)(O|o)(T|t)	{return OPR_NOT;}
-(A|a)(N|n)(D|d)	{return OPR_AND;}
-(O|o)(R|r)	{return OPR_OR;}
-(I|i)(M|m)	{return OPR_IM;}
-(E|e)(Q|q)	{return OPR_EQ;}
+"("	{
+	return OP;
+}
+
+")"	{
+	return CP;
+}
+(N|n)(O|o)(T|t)	{
+	return OPR_NOT;
+}
+
+(A|a)(N|n)(D|d)	{
+	return OPR_AND;
+}
+
+(O|o)(R|r)	{
+	return OPR_OR;
+}
+
+(I|i)(M|m)	{
+	return OPR_IM;
+}
+
+(E|e)(Q|q)	{
+	return OPR_EQ;
+}
+
 [A-Za-z_]+[A-Za-z_0-9]*	{
 	
 	//如果是第一次parsing，添加命题到命题表
@@ -25,11 +45,28 @@
 	
 	return PROP;
 }
-1	{yylval = 1; return VAL_TRUE;}
-0	{yylval = 0; return VAL_FALSE;}
-\n	{return EOL;}
-[ \t]	{}
-.	{fprintf(stderr, "Illegal character: %s\n", yytext);}
+
+1	{
+	yylval = 1;
+	return VAL_TRUE;
+}
+
+0	{
+	yylval = 0;
+	return VAL_FALSE;
+}
+
+\n	{
+	return EOL;
+}
+
+[ \t]	{
+
+}
+
+.	{
+	fprintf(stderr, "Illegal character: %s\n", yytext);
+}
 
 %%
 

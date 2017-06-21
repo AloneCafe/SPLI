@@ -1,4 +1,4 @@
-#ifndef _PROP_H_
+﻿#ifndef _PROP_H_
 #define _PROP_H_
 
 #include <stdlib.h>
@@ -6,53 +6,60 @@
 #include <string.h>
 #include <stdio.h>
 
-//数据大小的相关宏
-#define PROP_MAX_SIZE 32
-#define PROP_NAME_SIZE  32
-#define PROP_INDEX_SIZE 32
+//数据大小的相关宏（命题最大数量、命题名大小，命题索引大小）Def=128
+#define PROP_MAX_SIZE   128
+#define PROP_NAME_SIZE  128
+#define PROP_INDEX_SIZE 128
 
+//命题逻辑表达式大小常量宏 Def=2048
+#define EXPR_MAX_SIZE   2048
+
+//命题表数据结构
 typedef struct PropTable
 {
     //命题名字
     char name[PROP_NAME_SIZE];
     //索引列表
-    uint16_t index[PROP_INDEX_SIZE];
+    uint32_t index[PROP_INDEX_SIZE];
     //索引标记（定位列表位置）
-    uint16_t ip;
+    uint32_t ip;
     //命题真值
     _Bool val;
 }PropTable;
 
-
-typedef struct ResultTable
+//真值表数据结构
+typedef struct TruthTable
 {
     //命题真值枚举序列
     _Bool val[PROP_MAX_SIZE];
     //表达式真值结果
     _Bool result;
-}ResultTable;
+}TruthTable;
 
 //全局命题表
 PropTable *P;
 
 //全局真值表
-ResultTable *T;
+TruthTable *T;
+
+//命题逻辑表达式
+char expr[EXPR_MAX_SIZE];
 
 //全局当前命题数，真值结果数
-uint16_t prop_num;
-uint16_t result_num;
+uint32_t prop_num;
+uint32_t result_num;
 
 //命题是否已全部添加到表中（flag值）
 _Bool has_added;
 
 
 //函数声明
-PropTable *create_prop_table(uint16_t size);
-ResultTable *create_result_table(uint16_t size);
+PropTable *create_prop_table(uint32_t size);
+TruthTable *create_truth_table(uint32_t size);
 void add_prop_element(char name[PROP_NAME_SIZE]);
-void add_result_element(_Bool result);
+void add_truth_element(_Bool result);
 _Bool get_prop_val(char name[PROP_NAME_SIZE]);
-uint64_t pow2(int num);
+uint64_t pow2(uint32_t num);
 void step_prop_val();
 void debug_print();
 void print_table_title(char *result_text);

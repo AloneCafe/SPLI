@@ -1,4 +1,4 @@
-#ifndef _SPLI_H_
+﻿#ifndef _SPLI_H_
 #define _SPLI_H_
 
 /*
@@ -15,22 +15,19 @@ NOT(a)：对a取反
 #define AND(a, b)	a == 1 && b == 1 ? 1 : 0
 #define NOT(a)  a == 1 ? 0 : 1;
 
-#define EXPR_MAX_SIZE    128
-
-
+//词法分析器缓冲区类型
 typedef struct yy_buffer_state *YY_BUFFER_STATE;
 
-//表达式
-char expr[EXPR_MAX_SIZE];
-
-
 //flex & bison 库函数声明
-
 int yylex();
 int yyparse();
 void yyerror(char *s);
 int yywrap();
-void *yy_scan_string(char *);
+YY_BUFFER_STATE yy_scan_string(char *);
+int yy_flush_buffer(YY_BUFFER_STATE);
+int yy_delete_buffer(YY_BUFFER_STATE);
 int yy_switch_to_buffer(void *);
+
+
 
 #endif

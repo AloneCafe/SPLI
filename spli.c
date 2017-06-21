@@ -1,17 +1,19 @@
-#include "spli.h"
+﻿#include "spli.h"
 #include "prop.h"
 
 int main(int argc, char *argv[])
 {
 	int i;
-	//初始化命题表
-	P = create_prop_table(PROP_MAX_SIZE);
-	//初始化真值表（大小为2的PROP_MAX_SIZE次幂）
-	T = create_result_table(pow2(PROP_MAX_SIZE));
-
-	strcpy(expr, argv[1]);
 	if(argc == 2)
 	{
+		//初始化命题表
+		P = create_prop_table(PROP_MAX_SIZE);
+		//初始化真值表（大小为2的PROP_MAX_SIZE次幂）
+		T = create_truth_table(pow2(PROP_MAX_SIZE));
+	
+		//将参数字符串复制到命题逻辑表达式字符串中
+		strcpy(expr, argv[1]);
+
 		//定义输入缓冲区
 		YY_BUFFER_STATE bp;
 		//第一次parsing，添加命题到命题表（初始化命题遍历）
@@ -25,7 +27,7 @@ int main(int argc, char *argv[])
 		//递减以改变命题表中元素的值
 		step_prop_val();
 		//放弃缓冲区的内容
-		yy_flush_buffer(bp);
+		//yy_flush_buffer(bp);
 		//第一次parsing结束，已经添加命题到命题表
 		has_added = 1;
 
@@ -40,15 +42,20 @@ int main(int argc, char *argv[])
 			//递减以改变命题表中元素的值
 			step_prop_val();
 			//放弃缓冲区的内容
-			yy_flush_buffer(bp);
+			//yy_flush_buffer(bp);
 		}
 
 		//释放缓冲区
-		yy_delete_buffer(bp);
+		//yy_delete_buffer(bp);
 		//打印真值表的标题，结果列头部的标题文本为命令行参数
 		print_table_title(expr);
 		//打印整个真值表
 		print_table_body();
+
+		//释放内存空间
+		free(P);
+		free(T);
+
 		return 0;
 	}
 	else
