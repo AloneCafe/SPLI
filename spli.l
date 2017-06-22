@@ -12,23 +12,23 @@
 ")"	{
 	return CP;
 }
-(N|n)(O|o)(T|t)	{
+"!"	{
 	return OPR_NOT;
 }
 
-(A|a)(N|n)(D|d)	{
+"&"	{
 	return OPR_AND;
 }
 
-(O|o)(R|r)	{
+"|"	{
 	return OPR_OR;
 }
 
-(I|i)(M|m)	{
+"->"	{
 	return OPR_IM;
 }
 
-(E|e)(Q|q)	{
+"<->"	{
 	return OPR_EQ;
 }
 
@@ -43,21 +43,17 @@
 	//得到命题的真值，传递给yylval
 	yylval = get_prop_val(yytext);
 	
-	return PROP;
+	return VAL;
 }
 
 1	{
 	yylval = 1;
-	return VAL_TRUE;
+	return VAL;
 }
 
 0	{
 	yylval = 0;
-	return VAL_FALSE;
-}
-
-\n	{
-	return EOL;
+	return VAL;
 }
 
 [ \t]	{
