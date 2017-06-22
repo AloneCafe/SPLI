@@ -56,9 +56,9 @@
 	__$__ <code>flex ./spli.l</code>
 
 * 使用gcc或者clang（LLVM）编译C源代码：
-	> *-o 生成指定的可执行文件，-lfl 是GCC编译器链接flex库的必要参数*
+	> *-o 生成指定的可执行文件，-lfl 是GCC编译器链接flex库的必要参数（本项目已可不再使用）*
 
-	__$__ <code>gcc -o bin/spli ./lex.yy.c ./spli.tab.c ./spli.c ./prop.c -lfl</code>
+	__$__ <code>gcc -o bin/spli ./lex.yy.c ./spli.tab.c ./spli.c ./prop.c</code>
 	
 	__$__ <code>clang -o bin/spli ./lex.yy.c ./spli.tab.c ./spli.c ./prop.c</code>
 	
