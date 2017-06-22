@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-	int i;
+	uint32_t i;
 	if(argc == 2)
 	{
 		//初始化命题表
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 		//递减以改变命题表中元素的值
 		step_prop_val();
 		//放弃缓冲区的内容
-		//yy_flush_buffer(bp);
+		yy_flush_buffer(bp);
 		//第一次parsing结束，已经添加命题到命题表
 		has_added = 1;
 
@@ -42,11 +42,11 @@ int main(int argc, char *argv[])
 			//递减以改变命题表中元素的值
 			step_prop_val();
 			//放弃缓冲区的内容
-			//yy_flush_buffer(bp);
+			yy_flush_buffer(bp);
 		}
 
 		//释放缓冲区
-		//yy_delete_buffer(bp);
+		yy_delete_buffer(bp);
 		//打印真值表的标题，结果列头部的标题文本为命令行参数
 		print_table_title(expr);
 		//打印整个真值表
