@@ -24,16 +24,16 @@ typedef struct PropTable
     //索引标记（定位列表位置）
     uint32_t ip;
     //命题真值
-    _Bool val;
+    int32_t val;
 }PropTable;
 
 //真值表数据结构
 typedef struct TruthTable
 {
     //命题真值枚举序列
-    _Bool val[PROP_MAX_SIZE];
+    int32_t val[PROP_MAX_SIZE];
     //表达式真值结果
-    _Bool result;
+    int32_t result;
 }TruthTable;
 
 //全局命题表
@@ -50,15 +50,15 @@ uint32_t prop_num;
 uint32_t result_num;
 
 //命题是否已全部添加到表中（flag值）
-_Bool has_added;
+int32_t has_added;
 
 
 //函数声明
 PropTable *create_prop_table(uint32_t size);
 TruthTable *create_truth_table(uint32_t size);
 void add_prop_element(char name[PROP_NAME_SIZE]);
-void add_truth_element(_Bool result);
-_Bool get_prop_val(char name[PROP_NAME_SIZE]);
+void add_truth_element(int32_t result);
+int32_t get_prop_val(char name[PROP_NAME_SIZE]);
 uint64_t pow2(uint32_t num);
 void step_prop_val();
 void debug_print();

@@ -56,7 +56,7 @@ void add_prop_element(char name[PROP_NAME_SIZE])
 }
 
 //添加真值运算结果到真值表
-void add_truth_element(_Bool result)
+void add_truth_element(int32_t result)
 {
     uint32_t i;
     for(i = 0; i < prop_num; i++)
@@ -93,7 +93,7 @@ void print_table_body()
 }
 
 //从命题表指定名字的元素中得到真值，参数是命题元素的名字
-_Bool get_prop_val(char name[PROP_NAME_SIZE])
+int32_t get_prop_val(char name[PROP_NAME_SIZE])
 {
     uint32_t i;
     for(i = 0; i < prop_num; i++)
