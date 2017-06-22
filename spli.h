@@ -9,11 +9,11 @@ OR(a, b)：a析取b
 AND(a, b)：a合取b
 NOT(a)：对a取反
 */
-#define EQ(a, b)	a == b ? 1 : 0
-#define IM(a, b)	a == 1 && b == 0 ? 0 : 1
-#define OR(a, b)	a == 1 || b == 1 ? 1 : 0
-#define AND(a, b)	a == 1 && b == 1 ? 1 : 0
-#define NOT(a)  a == 1 ? 0 : 1;
+#define EQ(a, b)	a == b
+#define IM(a, b)	!(a && !(b))
+#define OR(a, b)	a || b
+#define AND(a, b)	a == b == 1
+#define NOT(a)      !(a)
 
 //词法分析器缓冲区类型
 typedef struct yy_buffer_state *YY_BUFFER_STATE;
