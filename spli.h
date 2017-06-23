@@ -12,7 +12,7 @@ NOT(a)：对a取反
 #define EQ(a, b)	a == b
 #define IM(a, b)	!(a && !(b))
 #define OR(a, b)	a || b
-#define AND(a, b)	a == b == 1
+#define AND(a, b)	a && b
 #define NOT(a)      !(a)
 
 //词法分析器缓冲区类型
