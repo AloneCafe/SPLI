@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-	uint64_t i;
+	uint64_t i = 0;
 	if(argc == 2)
 	{
 		//初始化命题表
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 		print_table_title(expr);
 
 		//后续的parsing，遍历命题的真值（每次parsing时，parser会计算并保存出表达式运算结果）
-		for(i = 0; i < pow2(prop_num); i++)
+		while(1)
 		{
 			bp = yy_scan_string(expr);
 			//设置词法分析器读取的缓冲区
@@ -41,8 +41,10 @@ int main(int argc, char *argv[])
 			yy_flush_buffer(bp);
 
 			//递减以改变命题表中元素的值
-			step_prop_val();
-			
+			if(step_prop_val())
+			{
+				break;
+			}
 		}
 
 		//释放缓冲区
