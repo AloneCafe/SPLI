@@ -3,3 +3,4 @@ lex.yy.c
 spli.tab.c
 spli.tab.h
 spli.exe
+spli
