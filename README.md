@@ -7,10 +7,10 @@
 - ### 编译前的准备工作
 
 #### 1. 解决构建依赖：
-* __Ubuntu：	#__ <code>apt-get update && apt-get install flex bison gcc make git</code>
-* __RHEL/CentOS/Fedora:	 #__ <code>yum update && yum install flex bison gcc make git</code>
-* __ArchLinux： #__ <code>pacman -Sy flex bison gcc make git</code>
-* __Termux： $__ <code>pkg update && pkg install flex bison clang make git</code>
+* __Ubuntu：__ # <code>apt-get update && apt-get install flex bison gcc make git</code>
+* __RHEL/CentOS/Fedora：__ # <code>yum update && yum install flex bison gcc make git</code>
+* __ArchLinux：__ # <code>pacman -Sy flex bison gcc make git</code>
+* __Termux：__ $ <code>pkg update && pkg install flex bison clang make git</code>
 * __Windows：__ 项目已打包好win_flex_bison，GCC编译环境需要用户自行安装<a href="https://sourceforge.net/projects/mingw/files/latest/download?source=files">MinGW</a>及mingw32-base包组，使用Git工具的话，也需要安装<a href="https://git-for-windows.github.io/">Git for Windows</a>（本人在说废话，Github老司机都知道ヽ(￣▽￣)ﾉ），若使用Makefile构建，需要将MinGW\bin目录添加到PATH环境变量中
 #### 2. 获取源代码：
 * 下载项目Zip包（不推荐！ヽ(`Д´)ﾉ）：<br/>
@@ -18,64 +18,60 @@
 
 * 使用Git工具（喜欢！(⁎˃ᴗ˂⁎)）：
 
-	__$__ <code>git clone https://github.com/longyanyu-cs/SPLI.git</code>
+	$ <code>git clone https://github.com/longyanyu-cs/SPLI.git</code>
 ---
-- ### 自动构建项目
-#### 1. 编译之前：
+- ### 使用 GNU C 编译器（GCC）
+#### 1. 准备编译：
 * 进入工作目录：
 
-	__$__ <code>cd SPLI</code>
+	$ <code>cd SPLI</code>
 
-#### 2. 使用make自动构建：
+#### 2. 使用make调用GCC自动构建：
 * Windows 操作系统（MinGW）：
 
-	__$__ <code>mingw32-make.exe -f Makefile.win</code>
+	$ <code>mingw32-make.exe -f Makefile.win</code>
 	
 	> *（可选）Lexer Debug模式 "flex -d"：*
 
-	__$__ <code>mingw32-make.exe -f Makefile.win debug</code>
+	$ <code>mingw32-make.exe -f Makefile.win debug</code>
 	
 * GNU/Linux 发行版（GCC）：
 	
-	__$__ <code>make -f ./Makefile.nix</code>
+	$ <code>make -f ./Makefile.nix</code>
 
 	> *（可选）Lexer Debug模式 "flex -d"：*
 
-	__$__ <code>make -f ./Makefile.nix debug</code>
+	$ <code>make -f ./Makefile.nix debug</code>
 ---
 - ### 手动生成C源代码，并且编译
 > *如果要移植到其他编译器或者操作系统平台，或者阁下是传说中的“高级用户”，想手动构建本项目，可以使用flex/bison直接生成C语言源代码，然后使用C编译器编译，大致步骤如下，可供参考：*
 
 * 使用bison生成Parser部分的代码（spli.tab.c、spli.tab.h）：
 
-	__$__ <code>bison -d ./spli.y</code>
+	$ <code>bison -d ./spli.y</code>
 	
 * 使用flex生成Lexer部分的代码（lex.yy.c）：
 	> *-i 不区分大小写，-d 表示Debug模式*
 	
-	__$__ <code>flex ./spli.l</code>
+	$ <code>flex ./spli.l</code>
 
 * 使用gcc或者clang（LLVM）编译C源代码：
 	> *-o 生成指定的可执行文件，-lfl 是GCC编译器链接flex库的必要参数（本项目已可不再使用）*
 
-	__$__ <code>gcc -o bin/spli ./lex.yy.c ./spli.tab.c ./spli.c ./prop.c</code>
+	$ <code>gcc -o bin/spli ./lex.yy.c ./spli.tab.c ./spli.c ./prop.c</code>
 	
-	__$__ <code>clang -o bin/spli ./lex.yy.c ./spli.tab.c ./spli.c ./prop.c</code>
+	$ <code>clang -o bin/spli ./lex.yy.c ./spli.tab.c ./spli.c ./prop.c</code>
 	
 	__（尚未在VC平台测试）__
+
+	以上的Lexer生成过程会产生*unistd.h*头文件依赖，在VC上可能无法编译，使用flex生成*lex.yy.c*时，可以采用*--nounistd*和*--wincompat*选项使得生成的*lex.yy.c*不依赖*unistd.h*头文件，否则该源代码就只能在类UNIX环境下编译。（其中*--wincompat*是win_flex提供的额外选项，这样可以减少VC的编译Warning）
 	
 ---
+Flex 项目主页：https://github.com/westes/flex/
 
+Bison 项目主页：http://www.gnu.org/software/bison/
 
-
-
-
-
-
-
-
-
-
+Win flex-bison 项目主页：https://sourceforge.net/projects/winflexbison/
 
 
 
