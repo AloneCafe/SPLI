@@ -64,7 +64,7 @@
 	
 	__（尚未在VC平台测试）__
 
-	以上的Lexer生成过程会产生*unistd.h*头文件依赖，在VC上可能无法编译，使用flex生成*lex.yy.c*时，可以采用*--nounistd*和*--wincompat*选项使得生成的*lex.yy.c*不依赖*unistd.h*头文件，否则该源代码就只能在类UNIX环境下编译。（其中*--wincompat*是win_flex提供的额外选项，这样可以减少VC的编译Warning）
+	以上的Lexer生成过程会产生_unistd.h_头文件依赖，在VC上可能无法编译，使用flex生成_lex.yy.c_时，可以采用_--nounistd_和_--wincompat_选项使得生成的_lex.yy.c_不依赖_unistd.h_头文件，否则该源代码就只能在类UNIX环境下编译。（其中_--wincompat_是win_flex提供的额外选项，这样可以减少VC的编译Warning）
 	
 ---
 Flex 项目主页：https://github.com/westes/flex/
