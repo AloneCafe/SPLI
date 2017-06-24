@@ -61,7 +61,7 @@ _Bool get_prop_val(char name[PROP_NAME_SIZE])
 }
 
 //自编的pow(2, n)运算函数
-uint64_t pow2(uint64_t num)
+uint64_t pow2(uint32_t num)
 {
     uint64_t i, result = 1;
     if(num == 0)
@@ -78,25 +78,57 @@ uint64_t pow2(uint64_t num)
 //Step by step地改变命题表中元素的真值，用于遍历所有可能的真值，返回1表示真值遍历完毕
 _Bool step_prop_val()
 {
+    uint64_t i;
+    //flag指示遍历状态，返回1表示真值遍历完毕，返回0表示遍历尚未完成，暂且默认置为1
+    _Bool flag = 1;
+    for(i = 0; i < prop_num; i++)
+    {
+        //如果当前位为1则将其置0，flag置为0（遍历为完毕），跳出循环
+        if(P[prop_num - i - 1].val)
+        {
+            P[prop_num - i - 1].val = 0;
+            flag = 0;
+            break;
+        }
+        //否则当前位为0将当前位置为1，继续循环，下次循环将操作下一位的值
+        else
+        {
+            P[prop_num - i - 1].val = 1;
+        }
+    }
+
+    //返回遍历状态
+    return flag;
+}
+
+/* 此函数副本已被弃用，因为uint64_t可表示的数范围有限
+//Step by step地改变命题表中元素的真值，用于遍历所有可能的真值，返回1表示真值遍历完毕
+_Bool step_prop_val()
+{
     uint64_t i, bin = 0;
+
     //把命题序列合并转化为十进制，以进行递减运算
     for(i = 0; i < prop_num; i++)
     {
         bin += P[prop_num - i - 1].val * pow2(i);
     }
 
-    //递减运算，如果小于0的话，说明真值遍历完毕，返回1
     bin--;
-
+    //递减运算，如果小于0的话，说明真值遍历完毕，返回1
+    if(bin )
+    {
+        return 1;
+    }
+    
     //运算完成，将十进制数分解成二进制，放入命题序列的各元素中
     for(i = 0; i < prop_num; i++)
     {
         P[prop_num - i - 1].val = bin % 2;
         bin /= 2;
     }
-
     
     //正常状态返回0
     return 0;
 
 }
+*/

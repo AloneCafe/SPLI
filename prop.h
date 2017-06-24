@@ -39,7 +39,7 @@ _Bool has_added;
 PropTable *create_prop_table(uint32_t size);
 void add_prop_element(char name[PROP_NAME_SIZE]);
 _Bool get_prop_val(char name[PROP_NAME_SIZE]);
-uint64_t pow2(uint64_t num);
+uint64_t pow2(uint32_t num);
 _Bool step_prop_val();
 void print_table_title(char *result_text);
 
