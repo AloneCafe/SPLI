@@ -3,14 +3,11 @@
 
 int main(int argc, char *argv[])
 {
-	uint32_t i;
+	uint64_t i;
 	if(argc == 2)
 	{
 		//初始化命题表
 		P = create_prop_table(PROP_MAX_SIZE);
-		//初始化真值表（大小为2的PROP_MAX_SIZE次幂）
-		T = create_truth_table(pow2(PROP_MAX_SIZE));
-	
 		//将参数字符串复制到命题逻辑表达式字符串中
 		strcpy(expr, argv[1]);
 
@@ -24,37 +21,35 @@ int main(int argc, char *argv[])
 		yy_switch_to_buffer(bp);
 		//开始调用parser
 		yyparse();
-		//递减以改变命题表中元素的值
-		step_prop_val();
 		//放弃缓冲区的内容
 		yy_flush_buffer(bp);
 		//第一次parsing结束，已经添加命题到命题表
 		has_added = 1;
 
+		//打印真值表的标题，结果列头部的标题文本为命令行参数
+		print_table_title(expr);
+
 		//后续的parsing，遍历命题的真值（每次parsing时，parser会计算并保存出表达式运算结果）
-		for(i = 1; i < pow2(prop_num); i++)
+		for(i = 0; i < pow2(prop_num); i++)
 		{
 			bp = yy_scan_string(expr);
 			//设置词法分析器读取的缓冲区
 			yy_switch_to_buffer(bp);
 			//重新调用parser
 			yyparse();
-			//递减以改变命题表中元素的值
-			step_prop_val();
 			//放弃缓冲区的内容
 			yy_flush_buffer(bp);
+
+			//递减以改变命题表中元素的值
+			step_prop_val();
+			
 		}
 
 		//释放缓冲区
 		yy_delete_buffer(bp);
-		//打印真值表的标题，结果列头部的标题文本为命令行参数
-		print_table_title(expr);
-		//打印整个真值表
-		print_table_body();
 
 		//释放内存空间
 		free(P);
-		free(T);
 
 		return 0;
 	}

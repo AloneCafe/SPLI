@@ -16,7 +16,10 @@
 %%
 
 list: exp {
-        add_truth_element($1);
+        if(has_added)
+	    {
+            printf(" | %d\n", $1);
+        }
     }
     ;
 

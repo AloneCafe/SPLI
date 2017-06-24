@@ -35,13 +35,16 @@
 [A-Za-z_]+[A-Za-z_0-9]*	{
 	
 	//如果是第一次parsing，添加命题到命题表
-	if(has_added == 0)
+	if(!has_added)
 	{
 		add_prop_element(yytext);
 	}
-	
-	//得到命题的真值，传递给yylval
-	yylval = get_prop_val(yytext);
+	else
+	{
+		//得到命题的真值，传递给yylval
+		yylval = get_prop_val(yytext);
+		printf(" %d", yylval);
+	}
 	
 	return VAL;
 }
@@ -74,7 +77,6 @@ void yyerror(char *s)
 }
 
 //重写yywrap函数，使之返回-1
-
 int yywrap()
 {
 	return -1;
