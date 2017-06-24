@@ -43,7 +43,22 @@
 	{
 		//得到命题的真值，传递给yylval
 		yylval = get_prop_val(yytext);
-		printf(" %d", yylval);
+
+		//判断是否有相同命题元素，若否则打印元素真值
+		if(has_same_prop_element(yytext))
+		{
+			//如果命题状态处于UNUSED，则打印元素真值，并将命题状态置为USED，表示已输出过该命题的真值
+			if(get_prop_status(yytext) == UNUSED)
+			{
+				printf(" %d", yylval);
+				set_prop_status(yytext, USED);
+			}
+		}
+		else
+		{
+			printf(" %d", yylval);	
+		}
+			
 	}
 	
 	return VAL;
