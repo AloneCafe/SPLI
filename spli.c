@@ -13,12 +13,15 @@ int main(int argc, char *argv[])
 
 		//定义输入缓冲区
 		YY_BUFFER_STATE bp;
+
 		//第一次parsing，添加命题到命题表（初始化命题遍历）
 		has_added = 0;
 		//从字符串读取输入
 		bp = yy_scan_string(expr);
 		//设置词法分析器读取的缓冲区
 		yy_switch_to_buffer(bp);
+		//清除命题状态标记
+		clean_prop_status();
 		//开始调用parser
 		yyparse();
 		//放弃缓冲区的内容
@@ -35,12 +38,14 @@ int main(int argc, char *argv[])
 			bp = yy_scan_string(expr);
 			//设置词法分析器读取的缓冲区
 			yy_switch_to_buffer(bp);
+			//清除命题状态标记
+			clean_prop_status();
 			//重新调用parser
 			yyparse();
 			//放弃缓冲区的内容
 			yy_flush_buffer(bp);
-
 			//递减以改变命题表中元素的值
+			
 			if(step_prop_val())
 			{
 				break;
@@ -49,7 +54,6 @@ int main(int argc, char *argv[])
 
 		//释放缓冲区
 		yy_delete_buffer(bp);
-
 		//释放内存空间
 		free(P);
 
