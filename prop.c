@@ -6,10 +6,12 @@ PropTable *create_prop_table(uint32_t size)
     uint32_t i;
     //内存分配
 	PropTable *p = (PropTable *)malloc(sizeof(PropTable) * size);
-    //依次初始化每个元素的索引标记和初始真值
+    //依次初始化每个元素的索引标记，初始真值，状态标记
     for(i = 0; i < size; i++)
     {
+        p[i].ip = 0;
         p[i].val = 1;
+        p[i].status = UNUSED;
     }
     //初始化命题数（置0）
     prop_num = 0;
@@ -25,14 +27,35 @@ void add_prop_element(char name[PROP_NAME_SIZE])
     {
         if(strcmp(P[i].name, name) == 0)
         {
+            P[i].index[P[i].ip++] = prop_num;
             return;
         }
     }
     //若不重复，则添加到新索引中
     strcpy(P[prop_num].name, name);
+    P[prop_num].index[P[prop_num].ip++] = prop_num;
     //命题个数+1
     prop_num++;
     
+}
+
+_Bool has_same_prop_element(char name[PROP_NAME_SIZE])
+{
+    uint32_t i;
+    
+    //检测对应的命题索引标记，大于1即是重复项
+    for(i = 0; i < prop_num; i++)
+    {
+        if(strcmp(P[i].name, name) == 0)
+        {
+            if(P[i].ip > 1)
+            {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
 }
 
 //打印真值表的标题，result_text指结果列头部的标题文本
@@ -58,6 +81,42 @@ _Bool get_prop_val(char name[PROP_NAME_SIZE])
         }
     }
 
+}
+
+//从命题表指定名字的元素中得到状态标记值，参数是命题元素的名字
+_Bool get_prop_status(char name[PROP_NAME_SIZE])
+{
+    uint32_t i;
+    for(i = 0; i < prop_num; i++)
+    {
+        if(strcmp(P[i].name, name) == 0)
+        {
+            return P[i].status;
+        }
+    }
+}
+
+//设置命题表指定名字的元素的状态标记值，参数是命题元素的名字和设定的状态标记值
+void set_prop_status(char name[PROP_NAME_SIZE], _Bool status)
+{
+    uint32_t i;
+    for(i = 0; i < prop_num; i++)
+    {
+        if(strcmp(P[i].name, name) == 0)
+        {
+            P[i].status = status;
+        }
+    }
+}
+
+//清除所有命题的状态标记
+void clean_prop_status()
+{
+    uint32_t i;
+    for(i = 0; i < prop_num; i++)
+    {
+        P[i].status = UNUSED;
+    }
 }
 
 //自编的pow(2, n)运算函数
@@ -132,3 +191,14 @@ _Bool step_prop_val()
 
 }
 */
+
+//调试输出
+void debug_output()
+{
+    int i;
+    printf("PropTable Debug Output:\n prop_num=%d\n", prop_num);
+    for(i = 0; i < prop_num; i++)
+    {
+        printf("[%d]->name=%s\tip=%d\tstatus=%d\tval=%d\n", i, P[i].name, P[i].ip, P[i].status, P[i].val);
+    }
+}
