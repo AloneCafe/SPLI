@@ -1,1 +1,0 @@
-This directory must exists when you build this program with Makefile.
