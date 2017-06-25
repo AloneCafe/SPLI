@@ -8,12 +8,12 @@ all: $(TARGETS)
 
 $(TARGETS):
 	$(BISON) -d spli.y
-	$(FLEX) -i spli.l
+	$(FLEX) spli.l
 	$(CC) -o bin/spli lex.yy.c spli.tab.c spli.c prop.c
 
 debug:
 	$(BISON) -d spli.y
-	$(FLEX) -d -i spli.l
+	$(FLEX) -d spli.l
 	$(CC) -o bin/spli lex.yy.c spli.tab.c spli.c prop.c
 	
 clean:
