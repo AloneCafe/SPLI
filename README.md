@@ -3,6 +3,24 @@
 
 * 本程序可以在Windows、GNU/Linux等flex & bison所兼容的操作系统平台上编译并运行，在Windows（MinGW）环境下编译，需要用到win_flex_bison工具包（项目已一同打包），在GNU/Linux环境下可能需要用户自行从软件源安装git、gcc、make、flex、bison等软件包。
 * 本程序在BSD/UNIX操作系统原生的clang（LLVM）下编译测试通过。
+
+#### 示例：验证德▪摩根律（De Morgan's laws）的正确性
+| P	| Q	| ¬(P∧Q) | ¬P∨¬Q |		
+| :---: | :---:	| :-----: | :----: |
+| 1	| 1	| __0__   | __0__  |
+| 1	| 0	| __1__   | __1__  |
+| 0	| 1	| __1__   | __1__  |
+| 0	| 0	| __1__	  | __1__  |
+
+- #### Windows：
+
+![example01](https://github.com/longyanyu-cs/SPLI/raw/master/screenshots/example01.png)
+
+- #### GNU/Linux：
+
+![example02](https://github.com/longyanyu-cs/SPLI/raw/master/screenshots/example02.png)
+
+
 ---
 
 - ### 编译前的准备工作
