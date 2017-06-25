@@ -18,7 +18,7 @@
 list: exp {
         if(has_added)
 	    {
-            printf(" | %d\n", $1);
+            printf("\t|\t%d\n", $1);
         }
     }
     ;

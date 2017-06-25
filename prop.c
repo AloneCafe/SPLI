@@ -64,9 +64,9 @@ void print_table_title(char *result_text)
     uint32_t i;
     for(i = 0; i < prop_num; i++)
     {
-        printf(" %s", P[i].name);
+        printf("\t%s", P[i].name);
     }
-    printf(" | %s\n", result_text);
+    printf("\t|\t%s\n", result_text);
 }
 
 //从命题表指定名字的元素中得到真值，参数是命题元素的名字
