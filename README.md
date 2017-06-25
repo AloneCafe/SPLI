@@ -3,8 +3,15 @@
 
 * 本程序可以在Windows、GNU/Linux等flex & bison所兼容的操作系统平台上编译并运行，在Windows（MinGW）环境下编译，需要用到win_flex_bison工具包（项目已一同打包），在GNU/Linux环境下可能需要用户自行从软件源安装git、gcc、make、flex、bison等软件包。
 * 本程序在BSD/UNIX操作系统原生的clang（LLVM）下编译测试通过。
+---
 
-#### 示例：验证德▪摩根律（De Morgan's laws）的正确性
+- ### 获取预编译二进制包
+
+**下载页面：https://github.com/longyanyu-cs/SPLI/releases**
+
+---
+
+- ### 示例：验证德▪摩根律（De Morgan's laws）的正确性
 | P	| Q	| ¬(P∧Q) | ¬P∨¬Q |		
 | :---: | :---:	| :-----: | :----: |
 | 1	| 1	| __0__   | __0__  |
@@ -12,11 +19,11 @@
 | 0	| 1	| __1__   | __1__  |
 | 0	| 0	| __1__	  | __1__  |
 
-- #### Windows：
+#### Windows 示例：
 
 ![example01](https://github.com/longyanyu-cs/SPLI/raw/master/screenshots/example01.png)
 
-- #### GNU/Linux：
+#### GNU/Linux 示例：
 
 ![example02](https://github.com/longyanyu-cs/SPLI/raw/master/screenshots/example02.png)
 
@@ -34,7 +41,7 @@
 
 #### 2. 获取源代码：
 * 下载项目Zip包（不推荐！ヽ(`Д´)ﾉ）：<br/>
-**<a href="https://github.com/longyanyu-cs/SPLI/archive/master.zip">https://github.com/longyanyu-cs/SPLI/archive/master.zip</a>**
+**https://github.com/longyanyu-cs/SPLI/archive/master.zip**
 
 * 使用Git工具（喜欢！(⁎˃ᴗ˂⁎)）：
 
@@ -67,6 +74,7 @@
 ---
 
 - ### 手动生成C源代码，并且编译
+
 > 如果要移植到其他编译器或者操作系统平台，或者阁下是传说中的“高级用户”，想手动构建本项目，可以使用flex/bison直接生成C语言源代码，然后使用C编译器编译，大致步骤如下，可供参考：
 
 * 使用bison生成Parser部分的代码（spli.tab.c、spli.tab.h）：
@@ -90,6 +98,78 @@
 	> 以上的Lexer生成过程会产生 *unistd.h* 头文件依赖，在VC上可能无法编译，使用flex生成 *lex.yy.c* 时，可以采用 *--nounistd* 和 *--wincompat* 选项使得生成的 *lex.yy.c* 不依赖 *unistd.h* 头文件，否则该源代码就只能在类UNIX环境下编译。（其中 *--wincompat* 是win_flex提供的额外选项，这样可以减少VC的编译Warning）
 	
 ---
+
+- ### 程序目录结构
+
+<pre>
+.
+├── bin			//二进制程序构建目录
+│   └── README.md	
+├── LICENSE		//GNU GPL v3许可证
+├── Makefile.nix	//GNU/Linux Makefile
+├── Makefile.win	//Windows Makefile
+├── prop.c		//命题算法源代码
+├── prop.h		//命题算法头文件
+├── README.md		//项目说明文档
+├── screenshots		//示例截图
+│   ├── example01.png
+│   ├── example02.png
+│   └── README.md
+├── spli.c		//SPLI核心源代码
+├── spli.h		//SPLI核心头文件
+├── spli.l		//SPLI Flex源代码
+├── spli.y		//SPLI Bison源代码
+└── win_flex_bison	//Winflexbison构建工具
+    ├── custom_build_rules
+    │   ├── how_to_use.txt
+    │   ├── win_bison_only
+    │   │   ├── how_to_use.txt
+    │   │   ├── win_bison_custom_build.props
+    │   │   ├── win_bison_custom_build.targets
+    │   │   └── win_bison_custom_build.xml
+    │   ├── win_flex_bison_custom_build.props
+    │   ├── win_flex_bison_custom_build.targets
+    │   ├── win_flex_bison_custom_build.xml
+    │   └── win_flex_only
+    │       ├── how_to_use.txt
+    │       ├── win_flex_custom_build.props
+    │       ├── win_flex_custom_build.targets
+    │       └── win_flex_custom_build.xml
+    ├── data
+    │   ├── bison.m4
+    │   ├── c-like.m4
+    │   ├── c.m4
+    │   ├── c++.m4
+    │   ├── c-skel.m4
+    │   ├── c++-skel.m4
+    │   ├── glr.c
+    │   ├── glr.cc
+    │   ├── java.m4
+    │   ├── java-skel.m4
+    │   ├── lalr1.cc
+    │   ├── lalr1.java
+    │   ├── location.cc
+    │   ├── m4sugar
+    │   │   ├── foreach.m4
+    │   │   └── m4sugar.m4
+    │   ├── Makefile.am
+    │   ├── Makefile.in
+    │   ├── README
+    │   ├── stack.hh
+    │   ├── xslt
+    │   │   ├── bison.xsl
+    │   │   ├── xml2dot.xsl
+    │   │   ├── xml2text.xsl
+    │   │   └── xml2xhtml.xsl
+    │   └── yacc.c
+    ├── FlexLexer.h
+    ├── README.txt
+    ├── UNISTD_ERROR.readme
+    ├── win_bison.exe
+    └── win_flex.exe
+
+9 directories, 55 files
+</pre>
 
 > 本程序使用Flex & Bison作为lexer和parser生成工具，在这里要感谢编写Flex/lex和Bison/yacc的团队，也要感谢将Flex & Bison移植到win32上的开发者，感谢你们让这个世界拥有了如此强大的自由软件，使得编写专用lexer和parser一些编程人员也能降低编写难度和花费的时间成本。
 
