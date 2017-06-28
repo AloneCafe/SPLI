@@ -19,6 +19,10 @@
 
 **下载页面：https://github.com/longyanyu-cs/SPLI/releases**
 
+- ### 基于Windows开发的MFC的图形界面前端（SPLP，命题逻辑演示器）
+
+**下载Visual Studio项目包： [SPLP.zip](https://github.com/longyanyu-cs/SPLI/files/1109307/SPLP.zip)**
+
 ---
 
 #### 示例——验证德▪摩根律（De Morgan's laws）的正确性
