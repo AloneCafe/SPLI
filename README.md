@@ -17,11 +17,11 @@
 
 - ### 获取预编译二进制包
 
-**下载页面：https://github.com/yenyuloong/SPLI/releases**
+**下载页面：https://github.com/AloneCafe/SPLI/releases**
 
 - ### 基于Windows开发的MFC的图形界面前端（SPLP，命题逻辑演示器）
 
-**下载Visual Studio项目包： [SPLP.zip](https://github.com/yenyuloong/SPLI/files/1109307/SPLP.zip)**
+**下载Visual Studio项目包： [SPLP.zip](https://github.com/AloneCafe/SPLI/files/1109307/SPLP.zip)**
 
 ---
 
@@ -35,11 +35,11 @@
 
 #### Windows 示例：
 
-![example01](https://github.com/yenyuloong/SPLI/raw/master/screenshots/example01.png)
+![example01](https://github.com/AloneCafe/SPLI/raw/master/screenshots/example01.png)
 
 #### GNU/Linux 示例：
 
-![example02](https://github.com/yenyuloong/SPLI/raw/master/screenshots/example02.png)
+![example02](https://github.com/AloneCafe/SPLI/raw/master/screenshots/example02.png)
 
 
 ---
@@ -55,11 +55,11 @@
 
 #### 2. 获取源代码：
 * 下载项目Zip包（不推荐！ヽ(`Д´)ﾉ）：<br/>
-**https://github.com/yenyuloong/SPLI/archive/master.zip**
+**https://github.com/AloneCafe/SPLI/archive/master.zip**
 
 * 使用Git工具（喜欢！(⁎˃ᴗ˂⁎)）：
 
-	$ <code>git clone https://github.com/yenyuloong/SPLI.git</code>
+	$ <code>git clone https://github.com/AloneCafe/SPLI.git</code>
 ---
 
 - ### 使用 GNU C 编译器（GCC）
